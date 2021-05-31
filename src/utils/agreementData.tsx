@@ -1,17 +1,17 @@
 import {crowdFundingContract} from './getCrowdFundingContract'
 
-export const getIndices = async (account:any) => {
+// export const getIndices = async (account:any) => {
+//     try {
+//         const agreementIndicesResponse = await crowdFundingContract.methods.agreementIndices(account).call();
+//         console.log('agreementIndicesResponse', agreementIndicesResponse);
+//     } catch (e) { console.log(e) }
+
+
+// }
+
+export const dcbPools = async (dcbvalue:Number) => {
     try {
-        const agreementIndicesResponse = await crowdFundingContract.methods.agreementIndices(account).call();
-        console.log('agreementIndicesResponse', agreementIndicesResponse);
-    } catch (e) { console.log(e) }
-
-
-}
-
-export const dcbPools = async () => {
-    try {
-        const dcbPools = await crowdFundingContract.methods.dcbPools(8888).call();
+        const dcbPools = await crowdFundingContract.methods.dcbPools(dcbvalue).call();
         const data ={
             agreementID:dcbPools.agreementID._hex,
             hardcap:dcbPools.hardcap._hex,

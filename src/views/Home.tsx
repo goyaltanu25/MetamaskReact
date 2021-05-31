@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import {getIndices,dcbPools} from '../utils/agreementData';
+import { useEffect, useState } from 'react';
+import {dcbPools} from '../utils/agreementData';
+import {connectWallet} from '../utils/connectWallet';
 
 
 interface DcbpoolData{
@@ -10,32 +11,34 @@ interface DcbpoolData{
 }
 
 const Home:React.FC = () => {
-  const [inputAddress, setInput] = useState('')
+  const [dcb, setDcb] = useState('');
+  const [isConnected, setWallet] = useState<Boolean>()
   const [dcbpool, setDcbPoolsData] = useState<DcbpoolData>()
 
-  const submit=()=>{
-    if(inputAddress){
-      getIndices(inputAddress)
+  useEffect(()=>{
+    async function wallet() {
+      const isConnected = await connectWallet()
+      setWallet(isConnected)
     }
-  }
-  
+    wallet();
+
+  },[isConnected])
   const getDcb =async ()=>{
-     const dcbpooldata = await dcbPools();
+     const dcbpooldata = await dcbPools(parseInt(dcb));
      setDcbPoolsData(dcbpooldata);
   }
+
   return <>
     <div className="text-center decoration-clone bg-red-300 py-6 px-6 border-4 rounded-md">
       <h1 className='text-lg md:text-4lg'>
-        Click on Connect!
+        {isConnected ? 'Connected!' : 'Click on Connect first!'}
       </h1>
       <div className="mb-3 pt-0">
         <input type="alphanumeric" placeholder="Enter Contract Owner Address"
           className="my-2 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-200"
-          value={inputAddress}
-          onChange={(e) => setInput(e.target.value)}
+          value={dcb}
+          onChange={(e) => setDcb(e.target.value)}
         />
-        <button className="items-center m-6 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" 
-        onClick={submit}>Submit</button>
         <button className="items-center m-6 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" 
         onClick={getDcb}>Get dcbPools</button>
       </div>
