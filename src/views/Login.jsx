@@ -26,7 +26,7 @@ export const Login = () => {
      }
     }
     const login=()=>{
-      if(username==="travis@gmail.com" && password==="12345678"){
+      if(username==="test@gmail.com" && password==="12345678"){
         connected(true);
       }
     }
