@@ -1,11 +1,23 @@
-import React,{useState} from 'react';
+import {useState} from 'react';
 import Home from './Home';
 
-const Login = ({isConnected,connectWallet}) => {
+export const Login = () => {
     const [username,setUserName]=useState();
     const [password,setpassword]=useState();
     const [isConnect,connected]=useState(false);
+    const [isConnected, setWallet] = useState(false);
 
+    const connectWallet=async()=>{
+      const accounts = await window.ethereum.enable();
+      if(accounts.length > 0){
+        const isConnected = window.ethereum.isConnected();
+        setWallet(isConnected);
+      }else{
+       const isConnected = window.ethereum.isConnected();
+       setWallet(isConnected);
+      }
+    }
+  
     const handleInput=({name,value})=>{
      switch(name){
        case 'email':setUserName(value);break;
@@ -18,7 +30,8 @@ const Login = ({isConnected,connectWallet}) => {
         connected(true);
       }
     }
-    return <>
+
+    return (<>
     {!isConnect ?
     <div className="w-2/5 bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="space-y-8">
@@ -68,8 +81,8 @@ const Login = ({isConnected,connectWallet}) => {
           </button>
     </div>
     :
-    <Home isConnected={isConnect}/>}
-      </>
-  }
-  
-  export default Login;
+    <Home isConnected={isConnect}/>
+    }
+    </>)
+}
+

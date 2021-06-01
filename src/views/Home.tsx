@@ -19,7 +19,7 @@ const Home = ({isConnected}:any) => {
   }
 
   return <>
-    <div className="text-center decoration-clone bg-red-300 py-6 px-6 border-4 rounded-md">
+    <div className="text-center decoration-clone bg-indigo-600 py-6 px-6 border-4 rounded-md">
       <h1 className='text-lg md:text-4lg'>
         {isConnected ? 'Connected!' : 'Click on Connect first!'}
       </h1>
