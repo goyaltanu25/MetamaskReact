@@ -12,28 +12,30 @@ function App() {
   const [isConnected, setWallet] = useState<Boolean>()
   
   async function connectWallet(){
-        const accounts = await web3.eth.getAccounts();
-        if (accounts.length > 0) {
-          const accountObj = {
-              isConnected: true,
-              address: accounts[0]
-          }
-          setWallet(accountObj.isConnected);
-      } else {
-          window.ethereum.enable();
-          setWallet(false);
-      }      
+         const accounts = await window.ethereum.enable();
+         if(accounts.length > 0){
+           const isConnected = window.ethereum.isConnected();
+           console.log(isConnected);
+           setWallet(isConnected);
+         }else{
+          const isConnected = window.ethereum.isConnected();
+          console.log(isConnected);
+         }
+         
+
   }
 
   useEffect(()=>{
-     connectWallet(); 
+    connectWallet(); 
   },[])
 
   return (
     <div>
       <Navbar/>
       {isConnected ?
-      <Home/> :
+      <Home 
+      isConnected={isConnected}
+      /> :
       <Login 
       isConnected={isConnected}
       connectWallet={connectWallet}

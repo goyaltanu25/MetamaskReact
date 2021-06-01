@@ -9,9 +9,8 @@ interface DcbpoolData{
   agreementName:string
 }
 
-const Home:React.FC = () => {
+const Home = ({isConnected}:any) => {
   const [dcb, setDcb] = useState('');
-  const [isConnected, setWallet] = useState<Boolean>()
   const [dcbpool, setDcbPoolsData] = useState<DcbpoolData>()
 
   const getDcb =async ()=>{
