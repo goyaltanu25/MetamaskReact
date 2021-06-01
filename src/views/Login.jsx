@@ -1,13 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import {connectWallet} from '../utils/connectWallet';
 
-const Login = () => {
-    const [isConnected, setWallet] = useState(); 
 
-    async function wallet() {
-        const isConnected = await connectWallet()
-        setWallet(isConnected)
-    }
+const Login = ({isConnected,connectWallet}) => {
 
     return <>
     <div className="w-2/5 bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -45,7 +39,7 @@ const Login = () => {
       </form>
       <div className="w-full text-center p-2">OR</div>
           <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          onClick={wallet}>
+          onClick={connectWallet}>
             {isConnected ? "Connected" : "Connect Using Metamask"}
           </button>
     </div>

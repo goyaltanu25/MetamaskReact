@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {dcbPools} from '../utils/agreementData';
-import {connectWallet} from '../utils/connectWallet';
 
 
 interface DcbpoolData{
@@ -15,14 +14,6 @@ const Home:React.FC = () => {
   const [isConnected, setWallet] = useState<Boolean>()
   const [dcbpool, setDcbPoolsData] = useState<DcbpoolData>()
 
-  useEffect(()=>{
-    async function wallet() {
-      const isConnected = await connectWallet()
-      setWallet(isConnected)
-    }
-    wallet();
-
-  },[isConnected])
   const getDcb =async ()=>{
      const dcbpooldata = await dcbPools(parseInt(dcb));
      setDcbPoolsData(dcbpooldata);
